@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in sortItems">
+                {{item}}
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="(student,index) in sortStudens">
+                {{index+1}}:{{student.name}}-{{student.age}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        //创建一个Vue实例
+        var app = new Vue({
+            el: '#app',   //提供页面上已经存在的Dom元素
+            data: {       
+                items:[23,45,6,87,45,76],
+                students:[
+                    {name:'lj',age:33},
+                    {name:'panda',age:28},
+                    {name:'xtb',age:23},
+                    {name:'james',age:35},
+                ]
+            },
+            computed:{
+                //computed重新声明了一个对象sortItems,保护源数据源
+                sortItems:function(){
+                    // return this.items.sort();
+                    return this.items.sort(sortNumber);
+                },
+                sortStudens:function(){
+                    return sortByKey(this.students,'age');
+                }
+            }
+            
+        });
+            function sortNumber(a,b) {
+                return a-b;
+            }
+            //数组对象的排序方法
+            function sortByKey(array,key) {
+                return array.sort(function (a,b) {
+                    var x=a[key];
+                    var y=b[key];
+                    return ((x<y)? -1:((x>y)?1:0));
+                });
+            }
+        </script>
+</body>
+</html>

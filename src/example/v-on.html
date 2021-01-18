@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定事件监听</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       本场比赛得分：{{grade}}
+       <p>
+           <button v-on:click="addTest">加分</button>
+           <button @click="delTest">减分</button>
+           <input type="text" @keyup.enter="onEnter" v-model="grade2">
+       </p>
+    </div>
+    <script type="text/javascript">
+        //创建一个Vue实例
+        var app = new Vue({
+            el: '#app',   //提供页面上已经存在的Dom元素
+            data: {       
+               grade:0,
+               grade2:1
+            },
+            methods:{
+               addTest:function(){
+                   this.grade++;
+               },
+               delTest:function(){
+                   this.grade--;
+               },
+               onEnter:function(){
+                   this.grade=this.grade+parseInt(this.grade2);
+               }
+           }
+        });
+           
+        </script>
+</body>
+</html>

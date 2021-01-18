@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>vue.set</h1>
+vue检测不到以下两种情况的数组变化
+<br>1. 利用索引值设置每一项的值后，vue不会自动更新
+<br>2. 当修改了数组的长度，vue不会自动更新
+<hr>
+    <div id="app">
+        {{count}}
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+        </ul>
+        <button @click="btn2Click()">改变数组长度</button>
+    </div>
+
+    <p><button onclick="add()">外部添加</button> </p>
+    <script type="text/javascript">
+
+        function add(){
+            // 1、Vue.set改变d
+            // Vue.set(outData,'count',5);
+            // 2、用Vue对象的方法添加
+            app.count++;
+            // 3、直接操作外部数据
+            // console.log("我已经执行了");
+            // outData.count++;
+
+            // this.arr[0]='ffff'
+            // outData.arr[1]='fff'
+            // app.arr[1]='ddd'
+            // Vue.set(app.arr,1,'dd')
+        }
+
+
+        var outData={
+           count:1,
+            arr:['aaa','bbb','ccc']
+        }
+
+
+        var app = new Vue({
+            el: '#app',   //提供页面上已经存在的Dom元素
+            data: outData,
+            methods:{
+                btn2Click:function (){
+                    var arrLen=this.arr.length;
+                    console.log(arrLen);
+                    // this.arr.length=5;
+                    Vue.set(this.arr,arrLen,'ffff')
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>
