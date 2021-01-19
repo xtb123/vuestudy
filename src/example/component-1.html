@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>component</h1>
+
+<hr>
+    <div id="app">
+        <lj></lj>
+        <lj></lj>
+        <panda></panda>
+    </div>
+    <div id="app1">
+        <lj></lj>
+        <lj></lj>
+
+    </div>
+
+    <script type="text/javascript">
+        <!--注册全局组件-->
+        Vue.component('lj',{
+            template:`<div style="color:red">我是全局的lj组件</div>`
+        })
+
+        //创建一个Vue实例
+        var app = new Vue({
+            el: '#app',   //提供页面上已经存在的Dom元素
+            components:{
+                "panda":{
+                    template:`<div style="color:green">我是局部的panda组件</div>`
+                }
+            }
+        });
+
+        var app1=new Vue({
+            el: '#app1',
+        })
+        </script>
+</body>
+</html>

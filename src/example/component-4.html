@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>component-4</h1>
+
+<hr>
+    <div id="app">
+        <component :is="who"></component>
+        <button @click="changeComponent">changeComponent</button>
+    </div>
+
+
+    <script type="text/javascript">
+        //1、在构造器外部定义三个不同的组件
+        var componentA={
+            template:`<div style="color:red">I am componentA</div>`
+        }
+        var componentB={
+            template:`<div style="color:green">I am componentB</div>`
+        }
+        var componentC={
+            template:`<div style="color:pink">I am componentC</div>`
+        }
+        //2、在构造器的components选项里加入这三个组件
+        var app = new Vue({
+            el: '#app',   //提供页面上已经存在的Dom元素
+            data:{
+                who:'componentB'
+            },
+            components:{
+                "componentA":componentA,
+                "componentB":componentB,
+                "componentC":componentC,
+            },
+            methods:{
+                changeComponent:function (){
+                    if(this.who==="componentA"){
+                        this.who="componentB";
+                    }else if(this.who==="componentB"){
+                        this.who="componentC";
+                    }else {
+                        this.who="componentA";
+                    }
+                }
+            }
+
+        });
+
+        </script>
+</body>
+</html>
