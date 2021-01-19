@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>propsData option 全局扩展的数据传递</h1>
+propsData不是和属性相关的  只是在全局扩展时进行参数传递<br>
+$mount 方法 是用来挂载扩展实例的 实现效果el挂载一样
+<hr>
+<header></header>
+    <script type="text/javascript">
+        // 扩展标签header_a
+       var header_a=Vue.extend({
+           //3、用插值的形式写入模板{{a}}
+           template:"<p>{{message}}-{{a}}</p>",
+           data:function (){
+               return {
+                   message:'hello ,I am header'
+               }
+           },
+           // 在全局扩展里加入props进行接收，props:['a']
+
+           props:['a']
+       });
+       // 用propsData在挂载的时候传递一个值过去，需要三步，1、传递时用propsData进行传递，propsData:{a:12}
+       new header_a({propsData:{a:12}}).$mount('header');
+    </script>
+</body>
+</html>

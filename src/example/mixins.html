@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定事件监听</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>mixins混入选项操作</h1>
+<hr>
+<div id="app">
+    <p>{{num}}</p>
+    <p><button @click="add">ADD</button> </p>
+</div>
+    <script type="text/javascript">
+        <!--选项合并，当组件和混入对象含有同名选项时，这些选项将以恰当的方式进行合并-->
+        var mixin={
+            data:function (){
+                return {
+                    message:'hello',
+                    foo:'abc'
+                }
+            }
+        }
+        //额外临时加入时，用于显示日志，在外部申明一个对象
+        var addLog={
+            updated:function (){
+                console.log('数据发生变化，变成了'+this.num);
+            }
+        }
+        //全局API混入
+        Vue.mixin({
+            updated:function () {
+                console.log('我是全局的混入')
+            }
+        })
+        var app =new Vue({
+            mixins:[addLog,mixin],  //混入
+            el:'#app',
+            data:{
+                num:1,
+                message:'goodbye',
+                bar:'def'
+            },
+            created:function (){
+              //数据对象在内部会进行递归合并，并在发生冲突时以组件数据优先
+                console.log(this.$data);
+            },
+            methods:{
+                add:function (){
+                    this.num++;
+                }
+            },
+            //
+            updated:function () {
+                console.log('我是构造器原生的updated');
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定事件监听</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>watch Option</h1>
+深度监听 deep 是用在对象内部数据变化的监听
+<p>https://www.cnblogs.com/shiningly/p/9471067.html
+</p>
+<hr>
+<div id="app">
+    <p>今日温度：{{wendu}}</p>
+    <p>穿衣建议：{{chuanyi}}</p>
+    <p><button @click="add">升温</button><button @click="reduce">降温</button> </p>
+</div>
+
+    <script type="text/javascript">
+        var chuanyiArray=['T恤短袖','夹克长裙','棉衣羽绒服']
+      var app=new Vue({
+          el:'#app',
+          data:{
+              wendu:-2,
+              chuanyi:'夹克长裙'
+          },
+          methods:{
+              add:function (){
+                  this.wendu+=5;
+              },
+              reduce:function (){
+                  this.wendu-=5;
+              }
+          },
+          //在构造器内部进行数据监控
+          // watch: {
+          //     wendu: function (newVal, oldVal) {
+          //         console.log(newVal);
+          //         console.log(oldVal);
+          //         if (newVal >= 26) {
+          //             this.chuanyi = chuanyiArray[0];
+          //         } else if (newVal < 26 && newVal > 0) {
+          //             this.chuanyi = chuanyiArray[1];
+          //         } else {
+          //             this.chuanyi = chuanyiArray[2];
+          //         }
+          //     }
+          // },
+
+            // watch:{
+            //     wendu:{
+            //         handler(newVal,oldVal){
+            //             if(newVal>=26){
+            //                 this.chuanyi=chuanyiArray[0];
+            //             }else if(newVal<26&&newVal>0){
+            //                 this.chuanyi=chuanyiArray[1];
+            //             }else {
+            //                 this.chuanyi=chuanyiArray[2];
+            //             }
+            //         },
+            //         //立即执行  监听的数据是否在首次绑定
+            //         immediate:true
+            //     }
+            // }
+      });
+           //watch在构造器外部，实例属性的形式写watch监控
+        app.$watch('wendu',function (newVal,oldVal){
+            if (newVal >= 26) {
+                this.chuanyi = chuanyiArray[0];
+            } else if (newVal < 26 && newVal > 0) {
+                this.chuanyi = chuanyiArray[1];
+            } else {
+                this.chuanyi = chuanyiArray[2];
+            }
+        })
+    </script>
+</body>
+</html>

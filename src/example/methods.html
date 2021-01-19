@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定事件监听</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>methods Option</h1>
+<hr>
+    <div id="app">
+        {{a}}
+        <!--2、调用方法时直接传递-->
+        <p><button @click="add(4)">ADD</button></p>
+        <p><button @click="add(2,$event)">组件add</button></p>
+        <!--3、用native修饰器来调用构造器里的add方法-->
+        <p>
+            <btn @click.native="add(4)"></btn>
+        </p>
+    </div>
+<!--作用域外部调用构造器里的方法-->
+<p><button onclick="app.add(3)">外部ADD</button></p>
+    <script type="text/javascript">
+        <!--将add按钮封装成组件，1、声明btn对象-->
+        var btn={
+            template:`<button>组件ADD</button>`
+        }
+      var app=new Vue({
+          el:'#app',
+          data:{
+              a:1
+          },
+          //2、在构造器中声明
+          components:{
+              "btn":btn
+          },
+          methods:{
+              //methods:方法参数传递分两步，1、在methods的方法中进行声明
+              add:function (num,$event){
+                console.log("%%%%%%%%");
+                console.log(event);
+                if(num!=null){
+                    this.a+=num;
+                }
+                else {
+                    this.a++;
+                }
+              }
+          }
+      });
+           
+    </script>
+</body>
+</html>

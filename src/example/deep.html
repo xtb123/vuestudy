@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定事件监听</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>deep Option</h1>
+深度监听 deep 是用在对象内部数据变化的监听
+<p>https://www.cnblogs.com/shiningly/p/9471067.html
+</p>
+<hr>
+<div id="app">
+    <input type="text" v-model="cityName.name"/>
+</div>
+
+    <script type="text/javascript">
+        var app=new Vue({
+            el: '#app',
+            data: {
+                cityName: {id: 1, name: 'shanghai'}
+            },
+            watch: {
+                cityName: {
+                    handler(newName, oldName) {
+                        console.log('oldName:'+oldName+',newName:'+newName);
+                    },
+                    deep: true,
+                    immediate: true
+                }
+                // 'cityName.name': {
+                //     handler(newName, oldName) {
+                //         console.log('oldName:'+oldName+',newName:'+newName);
+                //     },
+                //     deep: true,
+                //     immediate: true
+                // }
+            }
+        })
+    </script>
+</body>
+</html>
