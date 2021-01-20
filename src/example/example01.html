@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>example methods Demo</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <!--下载并引入jquery框架-->
+    <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<h1>extendsOption</h1>
+实例是在构造器的外部操作构造器内部的属性选项和方法
+<hr>
+    <div id="app">
+        {{message}}
+    </div>
+
+    <script type="text/javascript">
+       var app=new Vue({
+           el:'#app',
+           data:{
+               message:'hello world'
+           },
+           //2、在DOM挂载后修改里边的内容
+          mounted:function () {
+               $("#app").html('我是jquery');
+          },
+          //3、实例调用自定义的方法
+           methods:{
+               add:function (){
+                    console.log('调用了构造器内部的ADD方法')
+               }
+           }
+       })
+       //4、实例调用
+       app.add();
+       console.log(app);
+    </script>
+</body>
+</html>

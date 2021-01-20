@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>example methods Demo</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <!--下载并引入jquery框架-->
+    <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<h1>extendsOption</h1>
+
+<hr>
+    <div id="app">
+
+    </div>
+<p><button onclick="destroy()">卸载</button> </p>
+<p><button onclick="reload()">刷新</button> </p>
+<p><button onclick="tick()">更改数据</button> </p>
+    <script type="text/javascript">
+       var lj=Vue.extend({
+           template:`<p>{{message}}</p>`,
+           data:function (){
+               return {
+                   message:'hello world'
+               }
+           },
+           mounted:function () {
+               console.log('mount 被创建');
+           },
+           destroyed:function () {
+               console.log('卸载');
+           },
+           updated:function () {
+               console.log('update 更新之后');
+           }
+       })
+       // 1、用$mount的方法把lj挂载到DOM上
+       var vm=new lj().$mount("#app");
+       //2、用$destroy()进行卸载
+       function destroy(){
+           vm.$destroy();
+       }
+       //3、$forceUpdate()更新
+       function reload(){
+           vm.$forceUpdate();
+       }
+       //4、$nextTick()数据修改方法
+       function tick(){
+           // debugger
+           //修改数据
+           vm.message='update message info';
+           //DOM还没有更新
+           vm.$nextTick(function (){
+               //DOM更新
+               console.log('message更新之后我被调用了');
+           });
+       }
+    </script>
+</body>
+</html>
